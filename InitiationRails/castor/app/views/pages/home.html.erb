@@ -1,0 +1,13 @@
+<h1>Pages#home</h1>
+<p>Hey!!</p>
+<p>Now: <%= @titi %></p>
+
+<% if @titi == 42 %>
+  <p>Super, @titi vaut 42</p>
+<% else %>
+  <p>Dommage</p>
+<% end %>
+
+<% @titi.times do |i| %>
+  <p>Hello <%= i %>
+<% end %>
