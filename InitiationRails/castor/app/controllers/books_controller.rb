@@ -1,27 +1,30 @@
 class BooksController < ApplicationController
   def index
     @all_books = Book.all
+    @categories = Category.all
   end
 
   def create
-    Book.create title: params[:title]
+    Book.create title: params[:title], category_id: params[:category_id]
     redirect_to "/books"
   end
 
   def show
-    @le_livre = Book.find(params[:id])
+    @book = Book.find(params[:id])
   end
 
   def update
-    @le_livre = Book.find(params[:id])
-    @le_livre.title = params[:title]
-    @le_livre.save
-    redirect_to "/books/#{@le_livre.id}"
+    @book = Book.find(params[:id])
+    if @book.update title:  params[:title]
+      redirect_to "/books/#{@book.id}"
+    else
+      render :show
+    end
   end
 
   def destroy
-    @le_livre = Book.find(params[:id])
-    @le_livre.destroy
+    @book = Book.find(params[:id])
+    @book.destroy
     redirect_to "/books"
   end
 
