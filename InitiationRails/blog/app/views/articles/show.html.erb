@@ -1,7 +1,20 @@
 <h1>Article</h1>
 
-<h2><%= @un_article.title %></h2>
+<h2><%= @article.title %></h2>
 
-<p><%= @un_article.contenu %></p>
+<p><%= @article.contenu %></p>
+
+<h1>Commentaires</h1>
+<% @article.comments.each do |comment| %>
+<p>
+  <%= comment.author %> : <%= comment.content %>
+</p>    
+<% end %>
+
+<%= form_tag "/comments/#{@article.id}", method: "post" do %>
+  <input type="text" name="author" placeholder="auteur" />
+  <input type="text" name="content" />
+  <input type="submit" value="Ajouter un commentaire" />
+<% end %>
 
 <a href="/">Revenir à l'accueil</a>
