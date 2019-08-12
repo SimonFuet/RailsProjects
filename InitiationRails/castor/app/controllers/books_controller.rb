@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   def index
-    @all_books = Book.all
+    @all_books = Book.page(params[:page]).per(10)
     @categories = Category.all
   end
 
