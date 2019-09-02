@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   def index
-    @all_books = Book.page(params[:page]).per(10)
+    @books = Book.page(params[:page]).per(10)
     @categories = Category.all
   end
 
@@ -16,6 +16,7 @@ class BooksController < ApplicationController
   def update
     @book = Book.find(params[:id])
     if @book.update title:  params[:title]
+      flash[:success] = "Le livre a bien été mis à jour"
       redirect_to "/books/#{@book.id}"
     else
       render :show
@@ -23,8 +24,7 @@ class BooksController < ApplicationController
   end
 
   def destroy
-    @book = Book.find(params[:id])
-    @book.destroy
+    Book.find(params[:id]).destroy
     redirect_to "/books"
   end
 
