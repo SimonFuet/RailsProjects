@@ -1,5 +1,14 @@
-<%= form_tag "books/#{@book.id}", method: "patch" do %>
+<%= form_for @book do %>
   <input type="text" name="title" value="<%= @book.title %>" />
+  <select name="category_id">
+    <% @categories.each do |category| %>
+      <option value="<%= category.id %>"><%= category.title %></option>
+    <% end %>
+  </select>
   <p><%= @book.errors[:title].first %></p>
-  <input type="submit" value="Modifier le livre" />
+  <% if @book.persisted? %>
+    <input type="submit" value="Modifier le livre" />
+  <% else %>
+    <input type="submit" value="Ajouter le livre" />
+  <% end %>
 <% end %>

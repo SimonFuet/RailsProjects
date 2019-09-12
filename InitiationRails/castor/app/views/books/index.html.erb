@@ -9,12 +9,4 @@
 </p>
 <% end %>
 
-<%= form_tag "/books", method: "post" do %>
-  <input type="text" name="title" placeholder="title"/>
-  <select name="category_id">
-    <% @categories.each do |category| %>
-      <option value="<%= category.id %>"><%= category.title %></option>
-    <% end %>
-  </select>
-  <input type="submit" value="Ajouter à la liste"/>
-<% end %>
+<%= render "books/form" %>

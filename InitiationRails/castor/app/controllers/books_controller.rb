@@ -2,15 +2,23 @@ class BooksController < ApplicationController
   def index
     @books = Book.page(params[:page]).per(10)
     @categories = Category.all
+    @book = Book.new
   end
 
   def create
-    Book.create title: params[:title], category_id: params[:category_id]
-    redirect_to "/books"
+    @book = Book.new title: params[:title], category_id: params[:category_id]
+    if @book.save
+      flash[:success] = "Le livre a bien été créé"
+      redirect_to "/books/#{@book.id}"
+    else
+      @books = Book.all
+      render "index"
+    end
   end
 
   def show
     @book = Book.find(params[:id])
+    @categories = Category.all
   end
 
   def update
